@@ -91,6 +91,21 @@ $(document).ready(function () {
     {
         var lat = $(pin).attr('data-lat');
         var long = $(pin).attr('data-long');
+
+        var duration = 500;
+        var start = +new Date();
+        var pan = ol.animation.pan({
+            duration: duration,
+            source: (view.getCenter()),
+            start: start
+        });
+        var zoom = ol.animation.zoom({
+            duration: duration,
+            resolution: map.getView().getResolution(),
+            start: start
+        });
+        map.beforeRender(pan, zoom);
+        
         view.setCenter(ol.proj.fromLonLat([parseFloat(long), parseFloat(lat)]));
         view.setZoom(8);
     }
